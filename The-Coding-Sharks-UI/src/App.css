@@ -1,21 +1,91 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.App {
   text-align: center;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background: linear-gradient(79deg, #7439db, #c66fbc 48%, #f7944d);
 }
 
-.logo {
-  height: 6em;
+.auth-form-container, .login-form, .register-form {
+  display: flex;
+  flex-direction: column;
+  padding: 10rem;
+}
+
+@media screen and (min-widthc: 600px) {
+
+}.auth-form-container {
+    padding: 10rem;
+    border: 1px, solid, white;
+    border-radius: 10px;
+    margin: 0.5rem;
+  }
+
+label {
+  text-align: left;
+  padding: 0.25rem 0;
+}
+
+input {
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+}
+
+button{
+  border: none;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #7439db;
+}
+
+.link-btn {
+  background: none;
+  color: white;
+  text-decoration: underline;
+}
+
+/* .App-logo { */
+  /* height: 6em;
   padding: 1.5em;
   will-change: filter;
-  transition: filter 300ms;
+  transition: filter 300ms; */
+  /* height: 40vmin;
+  pointer-events: none;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@media (prefers-reduced-motion: no-preference) { */
+  /* a:nth-of-type(2) .logo { */
+  /* .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: black;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px = 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: aqua;
 }
 
 @keyframes logo-spin {
@@ -27,16 +97,10 @@
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
 .card {
   padding: 2em;
 }
 
 .read-the-docs {
   color: #888;
-}
+} */
