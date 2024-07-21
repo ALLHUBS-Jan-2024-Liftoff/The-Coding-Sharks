@@ -23,7 +23,7 @@ const LeafletMap = () => {
     ];
   
     return ( 
-        <MapContainer center={[38.6270, -90.1994]} zoom={13} ref={mapRef} style={{height: "100vh", width: "100vw"}}>
+        <MapContainer center={[38.6270, -90.1994]} zoom={13} ref={mapRef} style={{height: "70vh", width: "70vw"}}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
