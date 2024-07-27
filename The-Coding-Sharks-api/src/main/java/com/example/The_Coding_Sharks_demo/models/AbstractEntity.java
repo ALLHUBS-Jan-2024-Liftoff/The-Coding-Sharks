@@ -3,11 +3,8 @@ package com.example.The_Coding_Sharks_demo.models;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import org.hibernate.validator.constraints.Length;
 
 import java.util.Objects;
 
