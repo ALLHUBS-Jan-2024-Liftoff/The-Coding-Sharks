@@ -1,31 +1,47 @@
 import React from 'react';
 import { useState } from "react";
 import './App.css'
+import { Route, Routes } from 'react-router-dom';
 
-import { Login } from './Login';
-import { Register } from './Register';
+import { Login } from './components/Login';
+import { Register } from './components/Register';
 import Packlist from "./components/packList";
+import RandomDestination from './components/randomDestination';
+import Home from './components/home';
+
+
 
 function App() {
-  const [currentForm, setCurrentForm] = useState('login');
-
-  const toggleForm = (formName) => {
-    setCurrentForm(formName);
-  }
-
   return (
-  //   <div>
-  //     <h1>Cole's testing.</h1> //leaving this commented out to test components
-  //     <Packlist />
-      
-  //   </div>
-  // );
-
-      <div className="App">
-        {
-          currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />
-        }
+      <div className='App'>
+        <Routes>
+        <Route path="/home" element={ <Home />} />
+          <Route path="/randomDestination" element={ <RandomDestination />} />
+          <Route path="/packList" element={ <Packlist />} />
+        </Routes>
       </div>
-  )
+  );
 }
+
+
+
+
+
+//I have shelly's home page commented out to set up routing. 
+
+// function App() {
+//   const [currentForm, setCurrentForm] = useState('login');
+
+//   const toggleForm = (formName) => {
+//     setCurrentForm(formName);
+//   }
+
+//   return (
+//     <div className="App">
+//         {
+//           currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />
+//         }
+//       </div>
+//   )
+// }
 export default App;
