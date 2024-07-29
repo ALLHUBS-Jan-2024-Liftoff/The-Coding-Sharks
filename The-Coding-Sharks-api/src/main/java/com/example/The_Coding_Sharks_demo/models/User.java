@@ -2,16 +2,24 @@ package com.example.The_Coding_Sharks_demo.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Entity
 public class User extends AbstractEntity{
 
+    @NotNull
+    private String username;
+
+    @NotNull
+    private String pwHash;
 
     @NotBlank
     private String password;
 
+    @NotEmpty //allows non-empty strings but doesn't enforce whitespace constraints
     private String email;
 
     @NotBlank
@@ -51,14 +59,31 @@ public class User extends AbstractEntity{
     }
 
     public String getUsername() {
-        return this.getName();
+        return username + this.getName();
     }
 
-    public User() {
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
+    public User() {}
+
+    public User(String username, String password) {
+        this.username = username;
+        this.pwHash = encoder.encode(password);
     }
 
+    public void setPassword(String password) {
+        // Hash the password before storing it
+        this.pwHash = new BCryptPasswordEncoder().encode(password);
+    }
 
-    
-    
+    public boolean verifyPassword(String rawPassword) {
+        // Verify the raw password against the hashed pwHash
+        return new BCryptPasswordEncoder().matches(rawPassword, this.pwHash);
+    }
+
+    public boolean isMatchingPassword(String password) {
+        return encoder.matches(password, pwHash);
+    }
+
 }
+
