@@ -6,14 +6,17 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Entity
 public class User extends AbstractEntity{
 
-    @NotNull
+    @NotBlank  //changed from NotNull so that it will reject an empty string/only whitespace.
     private String username;
 
-    @NotNull
+    @NotBlank //changed from NotNull also
     private String pwHash;
 
     @NotBlank
@@ -27,6 +30,9 @@ public class User extends AbstractEntity{
     
     @NotBlank
     private String lastName;
+
+    @ManyToMany(mappedBy = "secondaryUsers") //added this to link to Trip entity (+ getters and setters)
+    private Set<Trip> trips = new HashSet<>();
 
     public void setEmail(String email) {
         this.email = email;
@@ -51,7 +57,15 @@ public class User extends AbstractEntity{
     public String getLastName() {
         return lastName;
     }
-    
+
+    public Set<Trip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(Set<Trip> trips) {
+        this.trips = trips;
+    }
+
     // Use the inherited "Name" field as the username
 
     public void setUsername(String username) {

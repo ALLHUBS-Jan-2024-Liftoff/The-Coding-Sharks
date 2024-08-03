@@ -9,7 +9,7 @@ import java.util.List;
 public class Destination extends AbstractEntity {
     
     @ManyToMany(mappedBy="destinationList")
-    private List<Trip> trips = new ArrayList<Trip>();
+    private List<Trip> trips = new ArrayList<>();
 
     private Number latitude;
     private Number longitude;
