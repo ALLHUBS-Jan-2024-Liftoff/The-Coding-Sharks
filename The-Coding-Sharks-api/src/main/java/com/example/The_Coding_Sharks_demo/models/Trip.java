@@ -12,10 +12,10 @@ public class Trip extends AbstractEntity {
     @JoinColumn(name = "primary_user_id")
     private User primaryUser;
 
-    @ManyToMany (mappedBy = "trips")
+    @ManyToMany(mappedBy = "trips")
     private List<User> secondaryUsers = new ArrayList<>();
 
-    @ManyToMany 
+    @ManyToMany(mappedBy = "trips")
     private List<Destination> destinationList = new ArrayList<>();
 
     public User getPrimaryUser() {

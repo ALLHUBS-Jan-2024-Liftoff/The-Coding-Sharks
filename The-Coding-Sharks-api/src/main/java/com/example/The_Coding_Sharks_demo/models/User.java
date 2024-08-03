@@ -3,10 +3,10 @@ package com.example.The_Coding_Sharks_demo.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 
@@ -19,9 +19,6 @@ public class User extends AbstractEntity{
     @NotBlank //changed from NotNull also
     private String pwHash;
 
-    @NotBlank
-    private String password;
-
     @NotEmpty //allows non-empty strings but doesn't enforce whitespace constraints
     private String email;
 
@@ -31,9 +28,26 @@ public class User extends AbstractEntity{
     @NotBlank
     private String lastName;
 
-    @ManyToMany(mappedBy = "secondaryUsers") //added this to link to Trip entity (+ getters and setters)
-    private Set<Trip> trips = new HashSet<>();
+    @ManyToMany//(mappedBy = "secondaryUsers") //added this to link to Trip entity (+ getters and setters)
+    @JoinTable(
+            name = "user_trip",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "trip_id")
+    )
+    private List<Trip> trips = new ArrayList<>();
 
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+
+    //constructors
+    public User() {}
+
+    public User(String username, String password) {
+        this.username = username;
+        this.pwHash = encoder.encode(password);
+    }
+
+    //getters and setters
     public void setEmail(String email) {
         this.email = email;
     }
@@ -58,41 +72,43 @@ public class User extends AbstractEntity{
         return lastName;
     }
 
-    public Set<Trip> getTrips() {
+    public List<Trip> getTrips() {
         return trips;
     }
 
-    public void setTrips(Set<Trip> trips) {
+    public void setTrips(List<Trip> trips) {
         this.trips = trips;
     }
 
+
+
     // Use the inherited "Name" field as the username
 
-    public void setUsername(String username) {
-        this.setName(username);
+    // Override setName to also set username
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+        this.username = name; // so username is always set to the inherited name
     }
 
-    public String getUsername() {
-        return username + this.getName();
+    // Override getName to return username
+    @Override
+    public String getName() {
+        return this.username;
     }
 
-    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    public User() {}
 
-    public User(String username, String password) {
-        this.username = username;
-        this.pwHash = encoder.encode(password);
-    }
+
 
     public void setPassword(String password) {
         // Hash the password before storing it
-        this.pwHash = new BCryptPasswordEncoder().encode(password);
+        this.pwHash = encoder.encode(password);
     }
 
     public boolean verifyPassword(String rawPassword) {
         // Verify the raw password against the hashed pwHash
-        return new BCryptPasswordEncoder().matches(rawPassword, this.pwHash);
+        return encoder.matches(rawPassword, this.pwHash);
     }
 
     public boolean isMatchingPassword(String password) {
