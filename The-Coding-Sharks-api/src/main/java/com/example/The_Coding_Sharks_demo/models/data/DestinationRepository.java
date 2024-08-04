@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DestinationRepository extends CrudRepository<Destination, Integer> {
+    Destination findByName(String name);
     
 }
