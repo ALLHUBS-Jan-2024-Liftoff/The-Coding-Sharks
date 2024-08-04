@@ -7,9 +7,14 @@ import java.util.List;
 
 @Entity
 public class Destination extends AbstractEntity {
-    
-    @ManyToMany(mappedBy="destinationList")
-    private List<Trip> trips = new ArrayList<Trip>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "destination_trip",
+            joinColumns = @JoinColumn(name = "destination_id"),
+            inverseJoinColumns = @JoinColumn(name = "trip_id")
+    )
+    private List<Trip> trips = new ArrayList<>();
 
     private Number latitude;
     private Number longitude;
