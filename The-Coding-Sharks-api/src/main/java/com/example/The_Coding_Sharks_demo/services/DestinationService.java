@@ -40,7 +40,7 @@ public class DestinationService {
         return destinationRepository.findById(id);
     }
 
-    // Save or update a destination
+    // Save
     public Destination saveDestination(Destination destination) {
         return destinationRepository.save(destination);
     }
