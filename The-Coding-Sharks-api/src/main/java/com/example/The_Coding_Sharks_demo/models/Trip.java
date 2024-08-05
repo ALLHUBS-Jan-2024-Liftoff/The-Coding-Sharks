@@ -18,6 +18,15 @@ public class Trip extends AbstractEntity {
     @ManyToMany(mappedBy = "trips")
     private List<Destination> destinationList = new ArrayList<>();
 
+    public Trip(){};
+
+    public Trip(User primaryUser, List<User> secondaryUsers, List<Destination> destinationList) {
+        this.primaryUser = primaryUser;
+        this.secondaryUsers = secondaryUsers;
+        this.destinationList = destinationList;
+    }
+
+    //getters and setters
     public User getPrimaryUser() {
         return primaryUser;
     }

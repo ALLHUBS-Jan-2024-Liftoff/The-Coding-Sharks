@@ -19,6 +19,16 @@ public class Destination extends AbstractEntity {
     private Number latitude;
     private Number longitude;
 
+    public Destination(){};
+
+    public Destination(String name, Number latitude, Number longitude) {
+        this.setName(name); // getting name from AbstractEntity
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+
+    //getters and setters
     public List<Trip> getTrips() {
         return trips;
     }
@@ -42,7 +52,5 @@ public class Destination extends AbstractEntity {
     public void setLongitude(Number longitude) {
         this.longitude = longitude;
     }
-
-
 
 }
