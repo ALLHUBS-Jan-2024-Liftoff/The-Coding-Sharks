@@ -33,6 +33,7 @@ public class TripService {
         }
     }
 
+    // Add a secondary user to a trip
     public void addUserToTrip(int tripId, String personUsername) {
         Trip trip = tripRepository.findById(tripId).orElseThrow(() -> new IllegalArgumentException("Trip not found"));
         User newUser = userService.findByUsername(personUsername);
@@ -40,9 +41,22 @@ public class TripService {
         // Check if user is already in trip's secondary user list
         if (!trip.getSecondaryUsers().contains(newUser)) {
             trip.getSecondaryUsers().add(newUser);
-            userRepository.save(newUser);
+            tripRepository.save(trip);
         }
 
     }
+
+    // Remove a secondary user from a trip
+    public void removeUserFromTrip(int tripId, String personUsername) {
+        Trip trip = tripRepository.findById(tripId).orElseThrow(() -> new IllegalArgumentException("Trip not found"));
+        User newUser = userService.findByUsername(personUsername);
+        
+        if (trip.getSecondaryUsers().contains(newUser)) {
+            trip.getSecondaryUsers().remove(newUser);
+            tripRepository.save(trip);
+        }   
+
+    }
+
 }
 
