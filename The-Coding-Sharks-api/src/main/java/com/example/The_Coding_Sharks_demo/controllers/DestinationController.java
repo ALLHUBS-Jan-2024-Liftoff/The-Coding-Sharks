@@ -2,6 +2,7 @@ package com.example.The_Coding_Sharks_demo.controllers;
 
 import com.example.The_Coding_Sharks_demo.models.Destination;
 import com.example.The_Coding_Sharks_demo.services.DestinationService;
+import com.example.The_Coding_Sharks_demo.services.GeocodingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,24 @@ public class DestinationController {
     @Autowired
     private DestinationService destinationService;
 
+    @Autowired
+    private GeocodingService geocodingService;
+
     @PostMapping
-    public ResponseEntity<Destination> createDestination(@RequestBody Destination destination) {
-        Destination createdDestination = destinationService.saveDestination(destination);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdDestination); //201 response
+    public ResponseEntity<Destination> createDestination(@RequestParam String name) {
+
+        try {
+            System.out.println("TESTING");
+            // Geocode the destination name to get latitude and longitude
+            Destination geocodedDestination = geocodingService.geocodeDestination(name);
+
+            // Save the geocoded destination to the database
+            Destination createdDestination = destinationService.saveDestination(geocodedDestination);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdDestination); // 201 response
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500 response
+        }
     }
 
     @GetMapping

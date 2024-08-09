@@ -91,81 +91,81 @@ import java.util.Optional;
 //    }
 //
 //}
-@RestController
-@RequestMapping("/api")
-public class AuthenticationController {
-
-    @Autowired
-    private UserRepository userRepository;
-
-    private static final String userSessionKey = "user";
-
-    // Method to retrieve user from session
-    public User getUserFromSession(HttpSession session) {
-        Integer userId = (Integer) session.getAttribute(userSessionKey);
-        if (userId == null) {
-            return null;
-        }
-
-        Optional<User> user = userRepository.findById(userId);
-
-        if (user.isEmpty()) {
-            return null;
-        }
-
-        return user.get();
-    }
-
-    // Method to set user in session
-    public static void setUserInSession(HttpSession session, User user) {
-        session.setAttribute(userSessionKey, user.getId());
-    }
-
-    // Endpoint to handle user registration
-    @PostMapping("/register")
-    public ResponseEntity<?> processRegistrationForm(@RequestBody @Valid RegisterFormDTO registerFormDTO) {
-        User existingUser = userRepository.findByUsername(registerFormDTO.getUsername());
-
-        if (existingUser != null) {
-            return new ResponseEntity<>("A user with that username already exists", HttpStatus.BAD_REQUEST);
-        }
-
-        String password = registerFormDTO.getPassword();
-        String verifyPassword = registerFormDTO.getVerifyPassword();
-        if (!password.equals(verifyPassword)) {
-            return new ResponseEntity<>("Passwords do not match", HttpStatus.BAD_REQUEST);
-        }
-
-        User newUser = new User(registerFormDTO.getUsername(), registerFormDTO.getPassword());
-        userRepository.save(newUser);
-
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-    }
-
-    // Endpoint to handle user login
-    @PostMapping("/login")
-    public ResponseEntity<?> processLoginForm(@RequestBody @Valid LoginFormDTO loginFormDTO, HttpServletRequest request) {
-        User theUser = userRepository.findByUsername(loginFormDTO.getUsername());
-
-        if (theUser == null) {
-            return new ResponseEntity<>("The given username does not exist", HttpStatus.BAD_REQUEST);
-        }
-
-        String password = loginFormDTO.getPassword();
-        if (!theUser.isMatchingPassword(password)) {
-            return new ResponseEntity<>("Invalid password", HttpStatus.BAD_REQUEST);
-        }
-
-        setUserInSession(request.getSession(), theUser);
-
-        return new ResponseEntity<>(theUser, HttpStatus.OK);
-    }
-
-    // Endpoint to handle user logout
-    @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request) {
-        request.getSession().invalidate();
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-}
+//@RestController
+//@RequestMapping("/api")
+//public class AuthenticationController {
+//
+//    @Autowired
+//    private UserRepository userRepository;
+//
+//    private static final String userSessionKey = "user";
+//
+//    // Method to retrieve user from session
+//    public User getUserFromSession(HttpSession session) {
+//        Integer userId = (Integer) session.getAttribute(userSessionKey);
+//        if (userId == null) {
+//            return null;
+//        }
+//
+//        Optional<User> user = userRepository.findById(userId);
+//
+//        if (user.isEmpty()) {
+//            return null;
+//        }
+//
+//        return user.get();
+//    }
+//
+//    // Method to set user in session
+//    public static void setUserInSession(HttpSession session, User user) {
+//        session.setAttribute(userSessionKey, user.getId());
+//    }
+//
+//    // Endpoint to handle user registration
+//    @PostMapping("/register")
+//    public ResponseEntity<?> processRegistrationForm(@RequestBody @Valid RegisterFormDTO registerFormDTO) {
+//        User existingUser = userRepository.findByUsername(registerFormDTO.getUsername());
+//
+//        if (existingUser != null) {
+//            return new ResponseEntity<>("A user with that username already exists", HttpStatus.BAD_REQUEST);
+//        }
+//
+//        String password = registerFormDTO.getPassword();
+//        String verifyPassword = registerFormDTO.getVerifyPassword();
+//        if (!password.equals(verifyPassword)) {
+//            return new ResponseEntity<>("Passwords do not match", HttpStatus.BAD_REQUEST);
+//        }
+//
+//        User newUser = new User(registerFormDTO.getUsername(), registerFormDTO.getPassword());
+//        userRepository.save(newUser);
+//
+//        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+//    }
+//
+//    // Endpoint to handle user login
+//    @PostMapping("/login")
+//    public ResponseEntity<?> processLoginForm(@RequestBody @Valid LoginFormDTO loginFormDTO, HttpServletRequest request) {
+//        User theUser = userRepository.findByUsername(loginFormDTO.getUsername());
+//
+//        if (theUser == null) {
+//            return new ResponseEntity<>("The given username does not exist", HttpStatus.BAD_REQUEST);
+//        }
+//
+//        String password = loginFormDTO.getPassword();
+//        if (!theUser.isMatchingPassword(password)) {
+//            return new ResponseEntity<>("Invalid password", HttpStatus.BAD_REQUEST);
+//        }
+//
+//        setUserInSession(request.getSession(), theUser);
+//
+//        return new ResponseEntity<>(theUser, HttpStatus.OK);
+//    }
+//
+//    // Endpoint to handle user logout
+//    @PostMapping("/logout")
+//    public ResponseEntity<?> logout(HttpServletRequest request) {
+//        request.getSession().invalidate();
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
+//}
 
