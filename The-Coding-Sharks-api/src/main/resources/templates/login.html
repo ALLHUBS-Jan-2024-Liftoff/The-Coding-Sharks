@@ -5,7 +5,7 @@
 
 <header th:replace="fragments :: header"></header>
 
-<form method="post">
+<form method="post" action="/login">
    <div class="form-group">
       <label th:for="username">Username
          <input class="form-control" th:field="${loginFormDTO.username}">
