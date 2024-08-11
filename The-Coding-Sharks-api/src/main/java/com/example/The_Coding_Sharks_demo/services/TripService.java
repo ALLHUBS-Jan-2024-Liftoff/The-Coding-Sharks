@@ -22,9 +22,9 @@ public class TripService {
     @Autowired
     private UserService userService;
 
-    public void addDestinationToTrip(int tripId, String destinationName, Number latitude, Number longitude) {
+    public void addDestinationToTrip(int tripId, String destinationName) {
         Trip trip = tripRepository.findById(tripId).orElseThrow(() -> new IllegalArgumentException("Trip not found"));
-        Destination destination = destinationService.findOrCreateDestination(destinationName, latitude, longitude);
+        Destination destination = destinationService.findOrCreateDestination(destinationName);
 
         // Check if the destination is already in the trip's list of destinations
         if (!trip.getDestinationList().contains(destination)) {

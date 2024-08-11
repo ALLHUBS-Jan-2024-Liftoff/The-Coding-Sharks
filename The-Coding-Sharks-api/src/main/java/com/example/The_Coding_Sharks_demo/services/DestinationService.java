@@ -20,15 +20,18 @@ public class DestinationService {
     private TripRepository tripRepository;
 
     // Find or create a destination by name
-    public Destination findOrCreateDestination(String name, Number latitude, Number longitude) {
-        Destination destination = destinationRepository.findByName(name);
-        if (destination == null) {
+    public Destination findOrCreateDestination(String destinationName) {
+        Destination existingDestination = destinationRepository.findByName(destinationName);
+        if (existingDestination == null) {
             // Create new destination if it does not exist
-            destination = new Destination(name, latitude, longitude);
-            destinationRepository.save(destination);
+            Destination newDestination = new Destination();
+            newDestination.setName(destinationName);
+            // You might need to set other fields like latitude and longitude here
+            existingDestination = destinationRepository.save(newDestination);
         }
-        return destination;
+        return existingDestination;
     }
+
 
     // Get all destinations
     public List<Destination> getAllDestinations() {
