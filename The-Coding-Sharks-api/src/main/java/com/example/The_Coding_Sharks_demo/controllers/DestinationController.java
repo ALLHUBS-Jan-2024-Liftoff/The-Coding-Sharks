@@ -25,7 +25,6 @@ public class DestinationController {
     public ResponseEntity<Destination> createDestination(@RequestParam String name) {
 
         try {
-            System.out.println("TESTING");
             // Geocode the destination name to get latitude and longitude
             Destination geocodedDestination = geocodingService.geocodeDestination(name);
 
