@@ -8,6 +8,7 @@ import { Register } from './components/Register';
 import Packlist from "./components/packList";
 import RandomDestination from './components/randomDestination';
 import Home from './components/home';
+import LeafletMap from './components/leafletMap';
 
 
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/home" element={ <Home />} />
           <Route path="/randomDestination" element={ <RandomDestination />} />
           <Route path="/packList" element={ <Packlist />} />
+          <Route path="/API" element={ <LeafletMap />} />
         </Routes>
       </div>
   );
