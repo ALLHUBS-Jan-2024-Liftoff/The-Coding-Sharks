@@ -40,7 +40,9 @@ public class DestinationController {
     @GetMapping
     public ResponseEntity<List<Destination>> getAllDestinations() {
         List<Destination> destinations = destinationService.getAllDestinations();
+        System.out.println("TESTING");
         return ResponseEntity.ok(destinations); //200 response
+
     }
 
     @GetMapping("/{id}")

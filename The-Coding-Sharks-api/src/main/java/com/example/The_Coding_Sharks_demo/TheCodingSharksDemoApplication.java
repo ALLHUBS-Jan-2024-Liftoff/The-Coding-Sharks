@@ -19,11 +19,11 @@ public class TheCodingSharksDemoApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/.*")
-						.allowedOrigins("http://localhost:5173")
-						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-						.allowedHeaders("*")
-						.allowCredentials(true);
+				registry.addMapping("/**") // Allow all endpoints
+						.allowedOrigins("http://localhost:5173") // Allow requests from your front-end origin
+						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allow these methods
+						.allowedHeaders("*") // Allow all headers
+						.allowCredentials(true); // Allow credentials
 			}
 		};
 	}
