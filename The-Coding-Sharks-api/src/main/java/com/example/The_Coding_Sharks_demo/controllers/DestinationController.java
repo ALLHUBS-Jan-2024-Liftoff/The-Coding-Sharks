@@ -23,7 +23,7 @@ public class DestinationController {
 
     @PostMapping
     public ResponseEntity<Destination> createDestination(@RequestParam String name) {
-
+        System.out.println(name);
         try {
             // Geocode the destination name to get latitude and longitude
             Destination geocodedDestination = geocodingService.geocodeDestination(name);
@@ -40,7 +40,6 @@ public class DestinationController {
     @GetMapping
     public ResponseEntity<List<Destination>> getAllDestinations() {
         List<Destination> destinations = destinationService.getAllDestinations();
-        System.out.println("TESTING");
         return ResponseEntity.ok(destinations); //200 response
 
     }
@@ -50,6 +49,20 @@ public class DestinationController {
         Optional<Destination> destination = destinationService.getDestinationById(id);
         return destination.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build()); //404 response. must use .build() when no body is included
+    }
+
+    @GetMapping("/geocode")
+    public ResponseEntity<?> getCityCoordinates(@RequestParam String text) {
+        try {
+            Destination destination = geocodingService.geocodeDestination(text);
+            if (destination != null) {
+                return ResponseEntity.ok(destination); // Return the geocoded destination
+            } else {
+                return ResponseEntity.notFound().build(); // City not found
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 500 response
+        }
     }
 
     @DeleteMapping("/{id}")

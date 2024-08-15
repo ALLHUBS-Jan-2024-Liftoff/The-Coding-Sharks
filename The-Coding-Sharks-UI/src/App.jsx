@@ -6,9 +6,9 @@ import { Route, Routes } from "react-router-dom";
 import { Login } from "./components/Login";
 import { Register } from "./components/Register";
 import Packlist from "./components/packList";
-import RandomDestination from "./components/maps/randomDestination";
+import RandomDestination from "./components/randomDestination";
 import Home from "./components/home";
-import LeafletMap from "./components/maps/leafletMap";
+import LeafletMap from "./components/leafletMap";
 
 function App() {
   return (
