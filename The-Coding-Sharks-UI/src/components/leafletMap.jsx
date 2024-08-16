@@ -23,40 +23,38 @@ const LeafletMap = ({ destinations = [], selectedCity }) => {
         let updatedMarkers = [];
 
         if (selectedCity) {
-          console.log(selectedCity)
-          console.log("testing")
             updatedMarkers = [{
                 geocode: [selectedCity.latitude, selectedCity.longitude],
                 popUp: selectedCity.name
             }];
-            console.log(updatedMarkers + "1")
-
         } else if (destinations.length > 0) {
             updatedMarkers = destinations.map(destination => ({
                 geocode: [destination.latitude, destination.longitude],
                 popUp: destination.name
             }));
-        } else {
-            axios.get('http://localhost:8080/api/destinations')
-                .then(response => {
-                    if (Array.isArray(response.data)) {
-                        updatedMarkers = response.data.map(destination => ({
-                            geocode: [destination.latitude, destination.longitude],
-                            popUp: destination.name
-                        }));
-                        setMarkers(updatedMarkers);
-                    } else {
-                        console.error('Unexpected response format:', response.data);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
+        // } else {
+        //     axios.get('http://localhost:8080/api/destinations')
+        //         .then(response => {
+        //             if (Array.isArray(response.data)) {
+        //                 updatedMarkers = response.data.map(destination => ({
+        //                     geocode: [destination.latitude, destination.longitude],
+        //                     popUp: destination.name
+        //                 }));
+        //                 setMarkers(updatedMarkers);
+        //             } else {
+        //                 console.error('Unexpected response format:', response.data);
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error('Error fetching data:', error);
+        //         });
         }
+
+        // Only update markers if there are changes
         if (JSON.stringify(markers) !== JSON.stringify(updatedMarkers)) {
-          setMarkers(updatedMarkers);
-      }
-    }, [destinations, selectedCity]);
+            setMarkers(updatedMarkers);
+        }
+    }, [destinations, selectedCity]); // This effect depends only on destinations and selectedCity
 
     return (
         <MapContainer center={[38.6270, -90.1994]} zoom={12} style={{ height: "100vh", width: "100vw" }}>
