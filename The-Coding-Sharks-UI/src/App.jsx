@@ -8,7 +8,7 @@ import { Register } from "./components/Register";
 import Packlist from "./components/packList";
 import RandomDestination from "./components/randomDestination";
 import Home from "./components/home";
-import LeafletMap from "./components/leafletMap";
+import Trip from ".components/trip";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/randomDestination" element={<RandomDestination />} />
         <Route path="/packList" element={<Packlist />} />
-        <Route path="/API" element={<LeafletMap />} />
+        <Route path="/trip" element={<Trip />} />
       </Routes>
     </div>
   );

@@ -7,6 +7,9 @@ import com.example.The_Coding_Sharks_demo.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class TripService {
 
@@ -22,6 +25,50 @@ public class TripService {
     @Autowired
     private UserService userService;
 
+    // Create trip using Name
+    public Trip createTrip(String tripName) {
+            Trip newTrip = new Trip();
+            newTrip.setName(tripName);
+        return tripRepository.save(newTrip);
+    }
+
+    //Get all trips in the database
+    public List<Trip> getAllTrips(){
+        return (List<Trip>) tripRepository.findAll();
+    }
+
+    // Get all trips for a user
+    public List<Trip> getTripsByUserId(Integer userId) {
+        return tripRepository.findByPrimaryUser_Id(userId);
+    }
+
+    // Get a specific trip by id
+    public Trip getTripById(Integer tripId) {
+        return tripRepository.findById(tripId).orElse(null);
+    }
+
+    // Update a trip
+    public Trip updateTrip(Integer tripId, String name) {
+        Optional<Trip> tripOptional = tripRepository.findById(tripId);
+        if (tripOptional.isPresent()) {
+            Trip tripToUpdate = tripOptional.get();
+            tripToUpdate.setName(name);
+            return tripRepository.save(tripToUpdate);
+        } else {
+            return null;
+        }
+    }
+
+    // Delete a trip
+    public boolean deleteTrip(Integer tripId) {
+        Optional<Trip> tripOptional = tripRepository.findById(tripId);
+        if (tripOptional.isPresent()) {
+            tripRepository.deleteById(tripId);
+            return true;
+        } else {
+            return false;
+        }
+    }
     public void addDestinationToTrip(int tripId, String destinationName) {
         Trip trip = tripRepository.findById(tripId).orElseThrow(() -> new IllegalArgumentException("Trip not found"));
         Destination destination = destinationService.findOrCreateDestination(destinationName);
