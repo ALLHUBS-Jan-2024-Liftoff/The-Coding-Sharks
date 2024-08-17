@@ -26,7 +26,6 @@ public class DestinationService {
             // Create new destination if it does not exist
             Destination newDestination = new Destination();
             newDestination.setName(destinationName);
-            // You might need to set other fields like latitude and longitude here
             existingDestination = destinationRepository.save(newDestination);
         }
         return existingDestination;
