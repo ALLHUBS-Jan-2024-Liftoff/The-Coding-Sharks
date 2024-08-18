@@ -78,14 +78,14 @@ public class AuthenticationController {
         return "redirect:/";
     }
 
-    @GetMapping("/login")
-    public String displayLoginForm(Model model) {
-        model.addAttribute(new LoginFormDTO());
-        model.addAttribute("title", "Log In");
-        return "login";
-    }
+//    @GetMapping(path = "/login")
+//    public String displayLoginForm(Model model) {
+//        model.addAttribute(new LoginFormDTO());
+//        model.addAttribute("title", "Log In");
+//        return "login";
+//    }
 
-    @PostMapping("/login")
+    @PostMapping(path = "/login")
     public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO,
                                    Errors errors, HttpServletRequest request,
                                    Model model) {
