@@ -26,7 +26,7 @@ public class LoginController {
         session.setAttribute(userSessionKey, user.getId());
     }
 
-    @GetMapping("/login")
+    @GetMapping(path = "/login")
     public String displayLoginForm(Model model) {
         model.addAttribute("loginFormDTO", new LoginFormDTO());
         model.addAttribute("title", "Log In");
@@ -34,7 +34,7 @@ public class LoginController {
     }
 
 
-    @PostMapping("/login")
+    @PostMapping(path = "/login/submit")
     public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO,
                                    Errors errors, HttpServletRequest request,
                                    Model model) {
