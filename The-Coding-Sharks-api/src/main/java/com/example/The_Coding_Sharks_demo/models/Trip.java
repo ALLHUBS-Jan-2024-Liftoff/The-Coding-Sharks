@@ -15,7 +15,12 @@ public class Trip extends AbstractEntity {
     @ManyToMany(mappedBy = "trips")
     private List<User> secondaryUsers = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "trips")
+    @ManyToMany
+    @JoinTable(
+            name = "trip_destinations",
+            joinColumns = @JoinColumn(name = "trip_id"),
+            inverseJoinColumns = @JoinColumn(name = "destination_id")
+    )
     private List<Destination> destinationList = new ArrayList<>();
 
     public Trip(){};
