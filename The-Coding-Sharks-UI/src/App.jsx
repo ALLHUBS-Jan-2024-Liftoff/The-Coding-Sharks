@@ -8,7 +8,7 @@ import { Register } from "./components/Register";
 import Packlist from "./components/packList";
 import RandomDestination from "./components/randomDestination";
 import Home from "./components/home";
-import Trip from ".components/trip";
+import Trip from "./components/trip";
 
 function App() {
   return (

@@ -32,3 +32,5 @@ const Trip = ({tripId}) => {
         </div>
     )
 };
+
+export default Trip;
