@@ -30,7 +30,7 @@ const tripSummary = () => {
 // Need to rework to pull only destinations associated with a given trip
 // Pull items from trip identified with queryParameters
     useEffect(() => {
-        axios.get(`http://localhost:8080/api/trips/${urlTripId}`)
+        axios.get(`http://localhost:8080/api/trip/${urlTripId}`)
             .then(response => {
                 
                 // Need to check what form the response comes in before working on it

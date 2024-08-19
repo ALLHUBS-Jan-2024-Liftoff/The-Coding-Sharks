@@ -21,6 +21,7 @@ public class TheCodingSharksDemoApplication {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**") // Allow all endpoints
 						.allowedOrigins("http://localhost:5173") // Allow requests from your front-end origin
+						.allowedOrigins("http://localhost:8080")
 						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Allow these methods
 						.allowedHeaders("*") // Allow all headers
 						.allowCredentials(true); // Allow credentials

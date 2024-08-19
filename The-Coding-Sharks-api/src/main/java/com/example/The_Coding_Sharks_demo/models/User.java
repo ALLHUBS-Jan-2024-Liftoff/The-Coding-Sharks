@@ -11,7 +11,11 @@ import java.util.Set;
 
 
 @Entity
-public class User extends AbstractEntity{
+public class User extends AbstractEntity {
+
+    @Id
+    @GeneratedValue
+    private int id;
 
     @NotBlank  //changed from NotNull so that it will reject an empty string/only whitespace.
     private String username;
@@ -19,14 +23,12 @@ public class User extends AbstractEntity{
     @NotBlank //changed from NotNull also
     private String pwHash;
 
+    private String firstName;
+    private String lastName;
+
     @NotEmpty //allows non-empty strings but doesn't enforce whitespace constraints
     private String email;
 
-    @NotBlank
-    private String firstName;
-    
-    @NotBlank
-    private String lastName;
 
     @ManyToMany//(mappedBy = "secondaryUsers") //added this to link to Trip entity (+ getters and setters)
     @JoinTable(
@@ -42,12 +44,23 @@ public class User extends AbstractEntity{
     //constructors
     public User() {}
 
-    public User(String username, String password) {
+    public User(String username, String password, String firstName, String lastName, String email) {
         this.username = username;
         this.pwHash = encoder.encode(password);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 
     //getters and setters
+    public int getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -70,6 +83,10 @@ public class User extends AbstractEntity{
 
     public String getLastName() {
         return lastName;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public List<Trip> getTrips() {

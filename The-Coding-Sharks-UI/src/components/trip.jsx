@@ -44,5 +44,4 @@ const Trip = () => {
         </div>
     )
 };
-
 export default Trip;

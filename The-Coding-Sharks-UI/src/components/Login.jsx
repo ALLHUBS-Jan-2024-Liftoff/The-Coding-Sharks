@@ -1,13 +1,19 @@
 import React, {useState} from "react";
+import {Link} from 'react-router-dom';
 
 export const Login = (props) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
+    const [currentForm, setCurrentForm] = useState('login');
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email);
+        console.log(`Email: ${email} || Password: ${pass}`);
+
     }
+
+
 
     return (
         <div className="auth-form-container">
@@ -21,6 +27,9 @@ export const Login = (props) => {
                 <button type="submit"> Log In</button>
             </form>
         <button className="link-btn" onClick={() => props.onFormSwitch('register')}>No account? Register Here.</button>
-        </div>
+            {/* <Link to={"../Register"}>No account? Register Here.</Link> */}
+
+       </div> 
+         
     )
 }
