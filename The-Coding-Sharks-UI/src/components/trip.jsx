@@ -34,3 +34,4 @@ const Trip = ({tripId}) => {
 };
 
 export default Trip;
+
