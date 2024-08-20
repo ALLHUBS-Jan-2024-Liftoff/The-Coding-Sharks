@@ -9,7 +9,9 @@ import Packlist from "./components/packList";
 import RandomDestination from "./components/randomDestination";
 import Home from "./components/home";
 import Trip from "./components/trip";
+
 import AllTrips from "./components/AllTrips";
+
 
 function App() {
   const [currentForm, setCurrentForm] = useState('login');

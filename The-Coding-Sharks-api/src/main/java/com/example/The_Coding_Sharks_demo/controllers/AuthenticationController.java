@@ -145,6 +145,7 @@ public class AuthenticationController {
 //        return "redirect:/login";
 //    }
 
+
 //}
 //@RestController
 //@RequestMapping("/api")
@@ -222,6 +223,8 @@ public class AuthenticationController {
 //        request.getSession().invalidate();
 //        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 //    }
+
 //}
+
 
 //adding edit to create pull request as first try failed

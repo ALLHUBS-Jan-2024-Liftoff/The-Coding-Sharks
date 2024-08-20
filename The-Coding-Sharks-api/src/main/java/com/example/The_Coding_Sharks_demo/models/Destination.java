@@ -1,5 +1,6 @@
 package com.example.The_Coding_Sharks_demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -8,12 +9,8 @@ import java.util.List;
 @Entity
 public class Destination extends AbstractEntity {
 
-    @ManyToMany
-    @JoinTable(
-            name = "destination_trip",
-            joinColumns = @JoinColumn(name = "destination_id"),
-            inverseJoinColumns = @JoinColumn(name = "trip_id")
-    )
+    @ManyToMany(mappedBy = "destinationList")
+    @JsonIgnore
     private List<Trip> trips = new ArrayList<>();
 
     private Number latitude;

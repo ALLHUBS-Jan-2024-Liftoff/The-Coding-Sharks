@@ -59,6 +59,7 @@ public class TripService {
         }
     }
 
+
     // Delete a trip
     public boolean deleteTrip(Integer tripId) {
         Optional<Trip> tripOptional = tripRepository.findById(tripId);
