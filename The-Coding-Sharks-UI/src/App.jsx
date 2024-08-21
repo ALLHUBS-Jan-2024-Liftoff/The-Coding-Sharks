@@ -9,6 +9,8 @@ import Packlist from "./components/packList";
 import RandomDestination from "./components/randomDestination";
 import Home from "./components/home";
 import Trip from "./components/trip";
+import Test from "./components/test";
+import TripSummary  from "./components/tripSummary";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/randomDestination" element={<RandomDestination />} />
         <Route path="/packList" element={<Packlist />} />
         <Route path="/trip" element={<Trip />} />
+        <Route path="/test" element={<Test />} />
+        <Route path="/TripSummary" element={<TripSummary />} />
       </Routes>
     </div>
   );
