@@ -10,9 +10,8 @@ import RandomDestination from "./components/randomDestination";
 import Home from "./components/home";
 import Trip from "./components/trip";
 import Test from "./components/test";
-
+import TripSummary  from "./components/tripSummary";
 import AllTrips from "./components/AllTrips";
-
 
 function App() {
   const [currentForm, setCurrentForm] = useState('login');
@@ -28,8 +27,12 @@ function App() {
         <Route path="/test" element={<Test />} />
         <Route path="/randomDestination" element={<RandomDestination />} />
         <Route path="/packList" element={<Packlist />} />
-        <Route path="/trip/:tripId" element={<Trip />} /> {/* Assuming you pass tripId as a parameter */}
-        <Route path="/allTrips" element={<AllTrips />} />
+
+         <Route path="/trip" element={<Trip />} />
+         <Route path="/test" element={<Test />} />
+        <Route path="/TripSummary" element={<TripSummary />} />
+       <Route path="/trip/:tripId" element={<Trip />} /> {/* Assuming you pass tripId as a parameter */}
+         <Route path="/allTrips" element={<AllTrips />} />
         <Route path="/login" element={<Login onFormSwitch={toggleForm} />} />
         <Route path="/register" element={<Register onFormSwitch={toggleForm} />} />
       </Routes>
