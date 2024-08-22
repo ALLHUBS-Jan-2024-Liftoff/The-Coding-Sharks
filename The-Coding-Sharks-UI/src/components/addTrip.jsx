@@ -10,11 +10,10 @@ const submitTrip = async (e) => {
     try {
       //I think the 400 error is from the syntax for this axios post request
         const response = await axios.post(
-            `http://localhost:8080/api/trip`,
-            null
+            `http://localhost:8080/api/trip`, 
+            name
     // Comment this out when user auth is added
       ,{
-        params: { name },
           withCredentials: true,
       }
 
