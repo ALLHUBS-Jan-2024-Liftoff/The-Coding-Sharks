@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Login({ setAuthenticated }) {
   const [username, setUsername] = useState("");
@@ -44,6 +45,7 @@ function Login({ setAuthenticated }) {
         />
         <button type="submit">Login</button>
       </form>
+      <Link to="/register">New user? Create an account here</Link>
       {message && <p>{message}</p>}
     </div>
   );
