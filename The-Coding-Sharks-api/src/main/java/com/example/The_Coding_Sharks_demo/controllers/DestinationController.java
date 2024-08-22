@@ -130,10 +130,41 @@ public class DestinationController {
         }
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateDestination(
+            @PathVariable Integer id,
+            @RequestParam String newName) {
+        try {
+            // Fetch the existing destination by ID
+            Optional<Destination> optionalDestination = destinationService.getDestinationById(id);
+
+            if (optionalDestination.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Destination not found.");
+            }
+
+            Destination destination = optionalDestination.get();
+
+            // Geocode the new name to get the updated latitude and longitude
+            Destination geocodedDestination = geocodingService.geocodeDestination(newName);
+
+            // Update the destination's details
+            destination.setName(newName);
+            destination.setLatitude(geocodedDestination.getLatitude());
+            destination.setLongitude(geocodedDestination.getLongitude());
+
+            // Save the updated destination
+            destinationService.saveDestination(destination);
+
+            return ResponseEntity.ok("Destination updated successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating destination.");
+        }
+    }
+
+
     //Delete a specific destination
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteDestination(@PathVariable("id") Integer id ) {
-        System.out.println("REACHED THIS");
         if (!destinationService.existsById(id)) {
             return ResponseEntity.notFound().build(); // 404 response
         }

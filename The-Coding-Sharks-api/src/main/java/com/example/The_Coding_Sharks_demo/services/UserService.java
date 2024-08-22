@@ -23,7 +23,7 @@ public class UserService {
 
     public User getUserFromSession() {
         HttpSession session = request.getSession(false);// Get the current session, if it exists
-        Integer userId = (Integer) session.getAttribute(userSessionKey); // Replace with your session key
+        Integer userId = (Integer) session.getAttribute(userSessionKey);
         if (userId == null) {
             return null;
         }
