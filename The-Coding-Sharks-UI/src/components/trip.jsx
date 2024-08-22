@@ -58,6 +58,25 @@ const Trip = () => {
     }
   };
 
+  const handleDeleteDestination = async (id) => {
+    console.log("Destination ID: " + id);
+    try {
+      const response = await axios.delete(`http://localhost:8080/api/destinations/delete/${id}`, { withCredentials: true });
+
+      if (response.status === 204) {  
+        // Update the destinations state to remove the deleted destination
+        setDestinations(destinations.filter(destination => destination.id !== id));
+        setMessage("Destination deleted successfully");
+      } else {
+        setMessage("Failed to delete destination");
+      }
+    } catch (error) {
+      console.error('Error deleting destination:', error);
+      setMessage("Error deleting destination");
+    }
+  };
+  
+
   return (
     <div>
       <h2>Trip Details for trip id: {tripId}</h2>
@@ -73,7 +92,10 @@ const Trip = () => {
       {message && <p>{message}</p>}
       <ul>
         {destinations.map(destination => (
-          <li key={destination.id}> {destination.name} </li>
+          <li key={destination.id}>
+            {destination.name}
+            <button onClick={() => handleDeleteDestination(destination.id)}>Delete</button>
+          </li>
         ))}
       </ul>
       <LeafletMap destinations={destinations} />

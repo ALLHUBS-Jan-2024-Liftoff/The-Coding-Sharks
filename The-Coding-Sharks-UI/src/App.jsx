@@ -41,7 +41,7 @@ function App() {
             &nbsp;&nbsp;&nbsp;&nbsp;
             <Link to="/tripSummary">Trip Summary</Link>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <Link to="/addTrip">Add Trip</Link>
+            <Link to="/addTrip">Create a Trip</Link>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <Link to="/logout">Logout</Link>
 

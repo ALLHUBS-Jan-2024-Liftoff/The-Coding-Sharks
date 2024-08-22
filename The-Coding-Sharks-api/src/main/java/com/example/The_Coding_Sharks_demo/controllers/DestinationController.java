@@ -7,6 +7,7 @@ import com.example.The_Coding_Sharks_demo.services.TripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -108,6 +109,7 @@ public class DestinationController {
     //Get a specific destination
     @GetMapping("/{id}")
     public ResponseEntity<Destination> getDestinationById(@PathVariable Integer id) {
+
         Optional<Destination> destination = destinationService.getDestinationById(id);
         return destination.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build()); //404 response. must use .build() when no body is included
@@ -129,13 +131,14 @@ public class DestinationController {
     }
 
     //Delete a specific destination
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDestination(@PathVariable Integer id) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteDestination(@PathVariable("id") Integer id ) {
+        System.out.println("REACHED THIS");
         if (!destinationService.existsById(id)) {
-            return ResponseEntity.notFound().build(); // 204 response
+            return ResponseEntity.notFound().build(); // 404 response
         }
         destinationService.deleteDestination(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build(); //204 when deleted
     }
 
 }

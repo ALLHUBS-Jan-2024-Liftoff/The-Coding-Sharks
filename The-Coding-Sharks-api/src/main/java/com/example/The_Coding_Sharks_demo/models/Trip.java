@@ -15,7 +15,7 @@ public class Trip extends AbstractEntity {
     @ManyToMany(mappedBy = "trips")
     private List<User> secondaryUsers = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "trip_destinations",
             joinColumns = @JoinColumn(name = "trip_id"),
