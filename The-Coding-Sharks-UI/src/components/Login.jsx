@@ -28,8 +28,9 @@ function Login({ setAuthenticated }) {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div style={{ textAlign: 'center', fontFamily: 'Arial, sans-serif' }}>
+    <h2 style={{ color: 'powderblue' }}>Welcome to Wanderlust</h2>
+    <h3 style={{ color: '	#FFFFE0' }}>Login to plan a trip!</h3>
       <form onSubmit={handleLogin}>
         <input
           type="text"
@@ -43,9 +44,10 @@ function Login({ setAuthenticated }) {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
-        <button type="submit">Login</button>
+        
+      <button type="submit" style={{ padding: '10px 20px', margin: '10px', backgroundColor: '#FFFFE0', color: 'black', border: 'none', borderRadius: '5px' }}>Login</button>
       </form>
-      <Link to="/register">New user? Create an account here</Link>
+      <Link to="/register" style={{  color: 'pink'}}>New user? Create an account here</Link>
       {message && <p>{message}</p>}
     </div>
   );
