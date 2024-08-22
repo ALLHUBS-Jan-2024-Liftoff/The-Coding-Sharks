@@ -63,7 +63,7 @@ function App() {
               <>
                 <Route path="/randomDestination" element={<RandomDestination />} />
                 <Route path="/userHomePage" element={<UserHomePage />} />
-                <Route path="/trip" element={<Trip />} />
+                <Route path="/trip/:tripId" element={<Trip />} />
                 <Route path="/tripSummary" element={<TripSummary />} />
                 <Route path="/addTrip" element={<AddTrip />} />
                 <Route
