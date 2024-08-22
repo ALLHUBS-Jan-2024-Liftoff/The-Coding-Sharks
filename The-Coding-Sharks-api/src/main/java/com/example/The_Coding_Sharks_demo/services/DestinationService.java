@@ -6,6 +6,7 @@ import com.example.The_Coding_Sharks_demo.models.data.DestinationRepository;
 import com.example.The_Coding_Sharks_demo.models.data.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -48,9 +49,21 @@ public class DestinationService {
     }
 
     // Delete a destination by ID
-    public void deleteDestination(Integer id) {
-        destinationRepository.deleteById(id);
+    @Transactional
+    public void deleteDestination(Integer destinationId) {
+        // Find and remove the destination from all associated trips
+        Destination destination = destinationRepository.findById(destinationId)
+                .orElseThrow(() -> new RuntimeException("Destination not found"));
+
+        for (Trip trip : destination.getTrips()) {
+            trip.getDestinationList().remove(destination);
+            tripRepository.save(trip);
+        }
+
+        // Finally, delete the destination
+        destinationRepository.deleteById(destinationId);
     }
+
 
     // Check if destination exists by ID
     public boolean existsById(Integer id) {

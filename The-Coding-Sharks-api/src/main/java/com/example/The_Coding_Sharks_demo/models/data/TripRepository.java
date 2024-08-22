@@ -12,5 +12,4 @@ public interface TripRepository extends CrudRepository<Trip, Integer> {
     List<Trip> findByPrimaryUser_Id(Integer primaryUserId);
     List<Trip> findByName(String name);
 //    List<Trip> findByUser(User user)
-
 }
