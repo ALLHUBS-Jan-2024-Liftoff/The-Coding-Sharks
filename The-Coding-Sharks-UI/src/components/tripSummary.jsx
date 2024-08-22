@@ -7,24 +7,24 @@ const tripId = queryString.get('tripid');
 
 const TripSummary = () => {
     const [destList, setDestList] = useState([]);
-    let latList = [];
-    let longList = [];
+    // TODO - implement latitude/longitude
+    // let latList = [];
+    // let longList = [];
 
     // Using useEffect to control when the axios call is made
     useEffect(() => {
-        console.log(tripId);
         axios.get(`http://localhost:8080/api/trip/${tripId}`)
             .then(response => {
                 setDestList(response.data.destinationList);
                 console.log(response.data);
 
-                response.data.destinationList.map(item => {
-                    latList.push(item.latitude);
-                    longList.push(item.longitude);
-                });
+                // response.data.destinationList.map(item => {
+                //     latList.push(item.latitude);
+                //     longList.push(item.longitude);
+                // });
 
-                console.log(latList);
-                console.log(longList);
+                // console.log(latList);
+                // console.log(longList);
             })
             .catch(error => {
                 console.error('Error fetching trip data:', error);

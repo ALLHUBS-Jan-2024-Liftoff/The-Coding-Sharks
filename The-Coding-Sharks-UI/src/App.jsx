@@ -6,6 +6,8 @@ import RandomDestination from "./components/randomDestination";
 import Trip from "./components/trip";
 import TripSummary from "./components/tripSummary";
 import AllTrips from "./components/AllTrips";
+import AddTrip from "./components/addTrip";
+
 import {
   BrowserRouter as Router,
   Route,
@@ -23,14 +25,23 @@ function App() {
       <nav>
         {!authenticated ? (
           <>
+          &nbsp;&nbsp;
             <Link to="/login">Login</Link>
+            {/* use &nbsp; for spacing links on navbar */}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <Link to="/register">Register</Link>
           </>
         ) : (
           <>
+          &nbsp;
             <Link to="/randomDestination">Randomize Destination</Link>
+            &nbsp;&nbsp;&nbsp;&nbsp;
             <Link to="/tripSummary">Trip Summary</Link>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <Link to="/addTrip">Add Trip</Link>
+            &nbsp;&nbsp;&nbsp;&nbsp;
             <Link to="/logout">Logout</Link>
+
           </>
         )}
       </nav>
@@ -50,6 +61,7 @@ function App() {
                 <Route path="/randomDestination" element={<RandomDestination />} />
                 <Route path="/trip" element={<Trip />} />
                 <Route path="/tripSummary" element={<TripSummary />} />
+                <Route path="/addTrip" element={<AddTrip />} />
                 <Route
                   path="/logout"
                   element={
