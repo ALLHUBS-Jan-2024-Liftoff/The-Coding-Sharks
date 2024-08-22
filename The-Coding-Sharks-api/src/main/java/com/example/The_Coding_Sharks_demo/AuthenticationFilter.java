@@ -1,6 +1,5 @@
 package com.example.The_Coding_Sharks_demo;
 
-//import com.example.The_Coding_Sharks_demo.controllers.AuthenticationController;
 import com.example.The_Coding_Sharks_demo.models.User;
 import com.example.The_Coding_Sharks_demo.controllers.UserController;
 import com.example.The_Coding_Sharks_demo.models.data.UserRepository;

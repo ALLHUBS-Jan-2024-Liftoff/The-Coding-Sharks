@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-//import static com.example.The_Coding_Sharks_demo.controllers.AuthenticationController.setUserInSession;
-
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -25,7 +23,7 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    private static final String userSessionKey = "user";
+    public static final String userSessionKey = "user";
 
     public User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
@@ -46,6 +44,17 @@ public class UserController {
         session.setAttribute(userSessionKey, user.getId());
     }
 
+    @GetMapping("/currentUser")
+    public ResponseEntity<User> getCurrentUser(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User currentUser = getUserFromSession(session);
+
+        if (currentUser == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        return ResponseEntity.ok(currentUser);
+    }
 
     @GetMapping  //returns a list of all user objects
     public List<User> getAllUsers() {

@@ -21,7 +21,7 @@ const RandomDestination = ({ tripId }) => {
     const apiUrl = `http://localhost:8080/api/destinations/geocode?text=${encodeURIComponent(cityName)}`;
 
     try {
-      const response = await axios.get(apiUrl);
+      const response = await axios.get(apiUrl, {withCredentials: true});
       const data = response.data;
 
       if (data && data.latitude !== undefined && data.longitude !== undefined) {

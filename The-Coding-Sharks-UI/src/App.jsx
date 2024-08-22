@@ -7,6 +7,7 @@ import Trip from "./components/trip";
 import TripSummary from "./components/tripSummary";
 import AllTrips from "./components/AllTrips";
 import AddTrip from "./components/addTrip";
+import UserHomePage from "./components/userHomePage";
 
 import {
   BrowserRouter as Router,
@@ -34,6 +35,8 @@ function App() {
         ) : (
           <>
           &nbsp;
+          <Link to="/userHomePage">My Profile</Link>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <Link to="/randomDestination">Randomize Destination</Link>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <Link to="/tripSummary">Trip Summary</Link>
@@ -59,6 +62,7 @@ function App() {
             {authenticated ? (
               <>
                 <Route path="/randomDestination" element={<RandomDestination />} />
+                <Route path="/userHomePage" element={<UserHomePage />} />
                 <Route path="/trip" element={<Trip />} />
                 <Route path="/tripSummary" element={<TripSummary />} />
                 <Route path="/addTrip" element={<AddTrip />} />

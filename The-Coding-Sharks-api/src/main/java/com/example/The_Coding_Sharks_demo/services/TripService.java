@@ -4,6 +4,7 @@ import com.example.The_Coding_Sharks_demo.models.Trip;
 import com.example.The_Coding_Sharks_demo.models.User;
 import com.example.The_Coding_Sharks_demo.models.data.TripRepository;
 import com.example.The_Coding_Sharks_demo.models.data.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +26,20 @@ public class TripService {
     @Autowired
     private UserService userService;
 
-    // Create trip using Name
-    public Trip createTrip(String tripName) {
-            Trip newTrip = new Trip();
-            newTrip.setName(tripName);
-        return tripRepository.save(newTrip);
+    @Autowired
+    private HttpSession httpSession; // Inject HttpSession
+
+    public Trip createTrip(String name) {
+        User user = userService.getUserFromSession();
+        if (user == null) {
+            throw new RuntimeException("User not found in session");
+        }
+
+        Trip trip = new Trip();
+        trip.setName(name);
+        trip.setPrimaryUser(user); // Set the primary user
+
+        return tripRepository.save(trip);
     }
 
     //Get all trips in the database
