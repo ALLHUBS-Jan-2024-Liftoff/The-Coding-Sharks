@@ -1,45 +1,70 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
-
-import { Login } from "./components/Login";
-import { Register } from "./components/Register";
-import Packlist from "./components/packList";
+import Login from "./components/Login";
+import Register from "./components/Register";
 import RandomDestination from "./components/randomDestination";
-import Home from "./components/home";
 import Trip from "./components/trip";
-import Test from "./components/test";
-import TripSummary  from "./components/tripSummary";
+import TripSummary from "./components/tripSummary";
 import AllTrips from "./components/AllTrips";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+  Link,
+} from "react-router-dom";
+import Logout from "./components/Logout";
 
 function App() {
-  const [currentForm, setCurrentForm] = useState('login');
-
-  const toggleForm = (formName) => {
-    setCurrentForm(formName);
-  }
+  const [authenticated, setAuthenticated] = useState(false);
 
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/test" element={<Test />} />
-        <Route path="/randomDestination" element={<RandomDestination />} />
-        <Route path="/packList" element={<Packlist />} />
+    <Router>
+      <nav>
+        {!authenticated ? (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+          </>
+        ) : (
+          <>
+            <Link to="/randomDestination">Randomize Destination</Link>
+            <Link to="/tripSummary">Trip Summary</Link>
+            <Link to="/logout">Logout</Link>
+          </>
+        )}
+      </nav>
+      <div className="App">
+        <header className="App-header">
+          <Routes>
+            {/* Public Routes */}
+            <Route
+              path="/login"
+              element={<Login setAuthenticated={setAuthenticated} />}
+            />
+            <Route path="/register" element={<Register />} />
 
-         <Route path="/trip" element={<Trip />} />
-         <Route path="/test" element={<Test />} />
-        <Route path="/TripSummary" element={<TripSummary />} />
-       <Route path="/trip/:tripId" element={<Trip />} /> {/* Assuming you pass tripId as a parameter */}
-         <Route path="/allTrips" element={<AllTrips />} />
-        <Route path="/login" element={<Login onFormSwitch={toggleForm} />} />
-        <Route path="/register" element={<Register onFormSwitch={toggleForm} />} />
-      </Routes>
-      <div>
-        {/* {currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />} */}
+            {/* Private Routes */}
+            {authenticated ? (
+              <>
+                <Route path="/randomDestination" element={<RandomDestination />} />
+                <Route path="/trip" element={<Trip />} />
+                <Route path="/tripSummary" element={<TripSummary />} />
+                <Route
+                  path="/logout"
+                  element={
+                    <Logout setAuthenticated={setAuthenticated} />
+                  }
+                />
+              </>
+            ) : (
+              <Route path="*" element={<Navigate to="/login" replace />} />
+            )}
+          </Routes>
+        </header>
       </div>
-    </div>
+    </Router>
   );
 }
+
 export default App;

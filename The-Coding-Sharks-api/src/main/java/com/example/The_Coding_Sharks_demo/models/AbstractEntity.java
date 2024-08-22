@@ -3,8 +3,6 @@ package com.example.The_Coding_Sharks_demo.models;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
@@ -15,8 +13,6 @@ public abstract class AbstractEntity {
     @GeneratedValue
     private int id;
 
-    @NotBlank
-    @Size(min = 0, max = 150)
     private String name;
 
     public int getId() {

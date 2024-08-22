@@ -26,7 +26,7 @@ public class User extends AbstractEntity {
     private String firstName;
     private String lastName;
 
-    @NotEmpty //allows non-empty strings but doesn't enforce whitespace constraints
+    //@NotEmpty //allows non-empty strings but doesn't enforce whitespace constraints
     private String email;
 
 

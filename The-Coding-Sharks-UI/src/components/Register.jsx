@@ -1,33 +1,76 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import axios from "axios";
 
-export const Register = (props) => {
-    const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+function Register() {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(email, pass, firstName, lastName);
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/user/register",
+        {
+          username,
+          password,
+          firstName,
+          lastName,
+          email
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      setMessage(response.data.message);
+    } catch (error) {
+      setMessage(error.response?.data?.message || "Registration failed");
     }
+  };
 
-    return (
-    <div className="auth-form-container">
-        <h2>Register</h2>
-        <form className="register-form" onSubmit={handleSubmit}>
-            <label htmlFor="firstName">First name</label>
-            <input value={firstName} onChange={(e) => setFirstName(e.target.value)} id="firstName" placeholder="first name" />
-            <label htmlFor="lastName">Last name</label>
-            <input value={lastName} onChange={(e) => setLastName(e.target.value)} id="lastName" placeholder="last name" />
-            <label htmlFor="email">email</label>
-            <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
-            <label htmlFor="password">password</label>
-            <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="*************" id="password" name="password" />
-            <button type="submit"> Register</button>
-        </form>
-        <button className="link-btn" onClick={() => props.onFormSwitch('login')}>
-            Have an account? Login here.
-        </button>
-      </div>
-    )
+  return (
+    <div>
+      <h2>Register</h2>
+      <form onSubmit={handleRegister}>
+      <input
+          type="text"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          placeholder="First Name"
+        />
+        <input
+          type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          placeholder="Last Name"
+        />
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Username"
+        />
+        <input
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        />
+        <button type="submit">Register</button>
+      </form>
+      {message && <p>{message}</p>}
+    </div>
+  );
 }
+
+export default Register;
